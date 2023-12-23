@@ -1,11 +1,11 @@
 import { styled } from '@kuma-ui/core';
 
 const Root = styled.div`
-  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  animation: skeleton-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   border-radius: 6px;
   background-color: #f4f4f5;
 
-  @keyframes pulse {
+  @keyframes skeleton-pulse {
     50% {
       opacity: 0.5;
     }
