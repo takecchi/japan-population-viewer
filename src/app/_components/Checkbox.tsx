@@ -5,6 +5,7 @@ const Root = styled.span`
   display: inline-flex;
   align-items: center;
   padding: 0.25rem;
+  word-break: keep-all;
 `;
 
 const Input = styled.input`
@@ -44,7 +45,7 @@ const Label = styled.label`
   user-select: none;
   font-size: 1rem;
   cursor: pointer;
-  margin-left: 0.5rem;
+  padding-left: 0.5rem;
   line-height: 1.5rem;
 `;
 
