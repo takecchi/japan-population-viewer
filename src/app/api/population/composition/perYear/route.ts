@@ -42,24 +42,40 @@ export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const prefCode = searchParams.get('prefCode');
 
+  // クエリパラメータチェック
   if (!prefCode) {
     return NextResponse.json({ message: 'Bad Request.' }, { status: 400 });
   }
 
-  const queryString = new URLSearchParams({ prefCode }).toString();
-  const res = await fetch(
-    process.env.RESAS_API_URL +
-      `/api/v1/population/composition/perYear?${queryString}`,
-    {
-      method: 'GET',
-      headers: {
-        'X-API-KEY': process.env.RESAS_API_KEY,
+  try {
+    const queryString = new URLSearchParams({ prefCode }).toString();
+    const res = await fetch(
+      `${process.env.RESAS_API_URL}/api/v1/population/composition/perYear?${queryString}`,
+      {
+        method: 'GET',
+        headers: {
+          'X-API-KEY': process.env.RESAS_API_KEY,
+        },
       },
-    },
-  );
-  const data = (await res.json()) as unknown;
-  if (isPerYear(data)) {
-    return NextResponse.json(data);
+    );
+
+    if (!res.ok) {
+      throw new Error(`API request failed with status ${res.status}`);
+    }
+
+    const data = (await res.json()) as unknown;
+
+    // 型チェック
+    if (isPerYear(data)) {
+      return NextResponse.json(data);
+    }
+  } catch (error) {
+    console.error(error);
+
+    return NextResponse.json(
+      { message: 'Internal Server Error' },
+      { status: 500 },
+    );
   }
 
   return NextResponse.json({ message: 'Not Found' }, { status: 404 });

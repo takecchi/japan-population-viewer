@@ -22,18 +22,25 @@ function isPrefectures(obj: unknown): obj is Prefectures {
 }
 
 export async function GET() {
-  const res = await fetch(process.env.RESAS_API_URL + '/api/v1/prefectures', {
-    method: 'GET',
-    headers: {
-      'X-API-KEY': process.env.RESAS_API_KEY,
-    },
-  });
-  const data = (await res.json()) as unknown;
-  if (isPrefectures(data)) {
-    return NextResponse.json(data);
+  try {
+    const res = await fetch(process.env.RESAS_API_URL + '/api/v1/prefectures', {
+      method: 'GET',
+      headers: {
+        'X-API-KEY': process.env.RESAS_API_KEY,
+      },
+    });
+    const data = (await res.json()) as unknown;
+    if (isPrefectures(data)) {
+      return NextResponse.json(data);
+    }
+    return NextResponse.json(
+      { message: 'Internal Server Error' },
+      { status: 500 },
+    );
+  } catch (error) {
+    return NextResponse.json(
+      { message: 'Error occurred while fetching data from RESAS API' },
+      { status: 500 },
+    );
   }
-  return NextResponse.json(
-    { message: 'Internal Server Error' },
-    { status: 500 },
-  );
 }
