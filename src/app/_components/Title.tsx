@@ -1,4 +1,3 @@
-import { ReactNode } from 'react';
 import { styled } from '@kuma-ui/core';
 
 const Root = styled.div`
