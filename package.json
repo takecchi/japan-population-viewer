@@ -19,11 +19,13 @@
     }
   },
   "dependencies": {
+    "@kuma-ui/core": "^1.5.5",
     "next": "14.0.4",
     "react": "^18",
     "react-dom": "^18"
   },
   "devDependencies": {
+    "@kuma-ui/next-plugin": "^1.1.15",
     "@storybook/addon-essentials": "^7.6.4",
     "@storybook/addon-interactions": "^7.6.4",
     "@storybook/addon-links": "^7.6.4",

@@ -1,4 +1,5 @@
 import type { StorybookConfig } from '@storybook/nextjs';
+import KumaUIWebpackPlugin from '@kuma-ui/webpack-plugin';
 
 const config: StorybookConfig = {
   stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
@@ -10,10 +11,17 @@ const config: StorybookConfig = {
   ],
   framework: {
     name: '@storybook/nextjs',
-    options: {},
+    options: {
+      fastRefresh: true,
+      strictMode: true,
+    },
   },
   docs: {
     autodocs: 'tag',
+  },
+  webpackFinal: (config) => {
+    config.plugins = [...(config.plugins ?? []), new KumaUIWebpackPlugin()];
+    return config;
   },
 };
 export default config;
