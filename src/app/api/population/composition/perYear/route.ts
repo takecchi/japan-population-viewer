@@ -14,28 +14,52 @@ type PerYear = {
 /**
  * 型チェック
  * @param obj
+ * @throws Error
  */
-function isPerYear(obj: unknown): obj is PerYear {
-  if (typeof obj === 'object' && obj !== null) {
-    const safeObj = obj as PerYear;
-    return (
-      (typeof safeObj.message === 'string' || safeObj.message === null) &&
-      typeof safeObj.result === 'object' &&
-      typeof safeObj.result.boundaryYear === 'number' &&
-      Array.isArray(safeObj.result.data) &&
-      safeObj.result.data.every(
-        (item) =>
-          typeof item.label === 'string' &&
-          Array.isArray(item.data) &&
-          item.data.every(
-            (subItem) =>
-              typeof subItem.year === 'number' &&
-              typeof subItem.value === 'number',
-          ),
-      )
-    );
+function validatePerYear(obj: unknown): obj is PerYear {
+  if (typeof obj !== 'object' || obj === null) {
+    throw new Error('Invalid object.');
   }
-  return false;
+
+  const safeObj = obj as PerYear;
+
+  if (typeof safeObj.message !== 'string' && safeObj.message !== null) {
+    throw new Error('Invalid message.');
+  }
+
+  if (typeof safeObj.result !== 'object') {
+    throw new Error('Invalid result.');
+  }
+
+  if (typeof safeObj.result.boundaryYear !== 'number') {
+    throw new Error('Invalid boundaryYear.');
+  }
+
+  if (!Array.isArray(safeObj.result.data)) {
+    throw new Error('Invalid data array.');
+  }
+
+  for (const item of safeObj.result.data) {
+    if (typeof item.label !== 'string') {
+      throw new Error('Invalid label.');
+    }
+
+    if (!Array.isArray(item.data)) {
+      throw new Error('Invalid data in item.');
+    }
+
+    for (const subItem of item.data) {
+      if (typeof subItem.year !== 'number') {
+        throw new Error('Invalid year.');
+      }
+
+      if (typeof subItem.value !== 'number') {
+        throw new Error('Invalid value.');
+      }
+    }
+  }
+
+  return true;
 }
 
 export async function GET(request: Request) {
@@ -66,7 +90,7 @@ export async function GET(request: Request) {
     const data = (await res.json()) as unknown;
 
     // 型チェック
-    if (isPerYear(data)) {
+    if (validatePerYear(data)) {
       return NextResponse.json(data);
     }
   } catch (error) {

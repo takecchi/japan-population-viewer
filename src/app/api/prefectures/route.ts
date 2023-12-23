@@ -9,7 +9,7 @@ type Prefectures = {
  * 型チェック
  * @param obj
  */
-function isPrefectures(obj: unknown): obj is Prefectures {
+function validatePrefectures(obj: unknown): obj is Prefectures {
   const safeObj = obj as Prefectures;
   return (
     (typeof safeObj.message === 'string' || safeObj.message === null) &&
@@ -30,7 +30,8 @@ export async function GET() {
       },
     });
     const data = (await res.json()) as unknown;
-    if (isPrefectures(data)) {
+    // 型チェック
+    if (validatePrefectures(data)) {
       return NextResponse.json(data);
     }
     return NextResponse.json(
