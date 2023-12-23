@@ -10,8 +10,9 @@ const meta: Meta<typeof Skeleton> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Example: Story = {
+export const Label: Story = {
   args: {
-    width: '100px',
+    width: 105,
+    height: 32,
   },
 };
