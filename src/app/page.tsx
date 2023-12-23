@@ -1,3 +1,9 @@
+import StyleTestButton from '@/app/_components/StyleTestButton';
+
 export default function Home() {
-  return <main></main>;
+  return (
+    <main>
+      <StyleTestButton />
+    </main>
+  );
 }
