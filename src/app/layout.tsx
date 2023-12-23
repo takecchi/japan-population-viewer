@@ -1,8 +1,14 @@
 import '@/styles/globals.css';
 
 import type { Metadata } from 'next';
+import { Viewport } from 'next';
 import { ReactNode } from 'react';
 import { KumaRegistry } from '@kuma-ui/next-plugin/registry';
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+};
 
 export const metadata: Metadata = {
   title: 'Create Next App',
