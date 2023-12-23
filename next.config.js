@@ -1,4 +1,9 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {}
+const { withKumaUI } = require('@kuma-ui/next-plugin');
 
-module.exports = nextConfig
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  swcMinify: true,
+  reactStrictMode: true,
+};
+
+module.exports = withKumaUI(nextConfig);
