@@ -43,34 +43,32 @@ export default function PrefGraph({
   });
 
   return (
-    <div style={{ height: '450px', padding: '1.5rem' }}>
-      <ResponsiveContainer width="100%" height="100%">
-        <LineChart
-          width={500}
-          height={400}
-          data={data}
-          margin={{
-            top: 5,
-            right: 30,
-            left: 20,
-            bottom: 5,
-          }}
-        >
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="year" />
-          <YAxis />
-          <Tooltip />
-          <Legend />
-          {filtered.map((pref) => (
-            <Line
-              type="monotone"
-              key={pref.prefCode}
-              dataKey={pref.name}
-              stroke={pref.color}
-            />
-          ))}
-        </LineChart>
-      </ResponsiveContainer>
-    </div>
+    <ResponsiveContainer width="100%" height="100%">
+      <LineChart
+        width={500}
+        height={400}
+        data={data}
+        margin={{
+          top: 5,
+          right: 30,
+          left: 20,
+          bottom: 5,
+        }}
+      >
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis dataKey="year" />
+        <YAxis />
+        <Tooltip />
+        <Legend />
+        {filtered.map((pref) => (
+          <Line
+            type="monotone"
+            key={pref.prefCode}
+            dataKey={pref.name}
+            stroke={pref.color}
+          />
+        ))}
+      </LineChart>
+    </ResponsiveContainer>
   );
 }
