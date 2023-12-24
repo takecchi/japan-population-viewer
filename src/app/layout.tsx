@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="ja">
+    <html lang="ja" style={{ overflowY: 'scroll' }}>
       <body>
         <KumaRegistry>{children}</KumaRegistry>
       </body>
