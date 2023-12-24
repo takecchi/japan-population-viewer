@@ -22,7 +22,7 @@ export default function Home() {
       </Paper>
       <Paper>
         <Title
-          title="総人口推移グラフ"
+          title="人口推移グラフ"
           summary={'年数経過に伴う人口変化を示しています。'}
         />
         <Graph />

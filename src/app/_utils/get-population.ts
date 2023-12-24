@@ -4,11 +4,12 @@ import { getColor } from '@/app/_utils/color';
 
 export type PopulationData = {
   years: number[];
+  labels: string[];
   prefectures: {
     color: string;
     name: string;
     prefCode: string;
-    data: number[];
+    data: { label: string; data: number[] }[];
   }[];
 };
 
@@ -21,7 +22,7 @@ type PerYear = {
   result: {
     boundaryYear: number;
     data: {
-      label: string; //'総人口'のものだけを見れば良い
+      label: string;
       data: { year: number; value: number }[];
     }[];
   };
@@ -99,29 +100,48 @@ export const getPopulationData = cache(async (): Promise<PopulationData> => {
     ),
   ).sort((a, b) => a - b);
 
+  // ラベルの一覧を抽出
+  const labels: string[] = Array.from(
+    new Set(
+      perYears.flatMap((response) =>
+        response.data.result.data.flatMap((d) => d.label),
+      ),
+    ),
+  );
+
   // 都道府県のデータを整形
   const populationData: PopulationData = {
     years,
+    labels,
     prefectures: prefectures.result.map((pref) => {
       // 年度一覧取得
       const perYear = perYears.find((res) => res.prefCode === pref.prefCode);
 
-      // 総人口
-      const totalPopulation = perYear?.data.result.data.find(
-        (d) => d.label === '総人口',
-      );
+      // ラベルでグループ化
+      const groupedData =
+        perYear?.data.result.data.reduce(
+          (acc, curr) => {
+            acc[curr.label] = curr.data;
+            return acc;
+          },
+          {} as { [key: string]: { year: number; value: number }[] },
+        ) ?? {};
 
-      // 年度別に抽出
-      const data: number[] = years.map((year) => {
-        const value = totalPopulation?.data.find((d) => d.year === year);
-        return value?.value ?? 0;
+      // ラベル別に抽出
+      const labelData = labels.map((label) => {
+        // 年度別に抽出
+        const data: number[] = years.map((year) => {
+          const value = groupedData[label]?.find((d) => d.year === year);
+          return value?.value ?? 0;
+        });
+        return { label: label, data: data };
       });
 
       return {
         color: getColor(pref.prefCode),
         name: pref.prefName,
         prefCode: `${pref.prefCode}`,
-        data,
+        data: labelData,
       };
     }),
   };

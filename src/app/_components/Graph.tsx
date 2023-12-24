@@ -7,8 +7,7 @@ import Skeleton from '@/app/_components/Skeleton';
 export const revalidate = 3600;
 
 const ContentBody = styled.div`
-  height: 450px;
-  padding: 1.5rem;
+  padding: 0 1.5rem 1.5rem 1.5rem;
 `;
 
 async function FetchedGraph() {
@@ -19,7 +18,7 @@ async function FetchedGraph() {
 export default function Graph() {
   return (
     <ContentBody>
-      <Suspense fallback={<Skeleton height="100%" width="100%" />}>
+      <Suspense fallback={<Skeleton height="500px" width="100%" />}>
         <FetchedGraph />
       </Suspense>
     </ContentBody>
