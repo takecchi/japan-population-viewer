@@ -39,12 +39,12 @@ export default function PrefGraph({
     // 年を初期値として設定
     const yearData: { year: number; [key: string]: number | null } = { year };
 
+    const index = populationData.years.indexOf(year);
+
     // 選択された都道府県ごとにその年のデータを追加
     filtered.forEach((pref) => {
       yearData[pref.name] =
-        pref.data.find((d) => d.label === selectedLabel)?.data[
-          populationData.years.indexOf(year)
-        ] ?? null;
+        pref.data.find((d) => d.label === selectedLabel)?.data[index] ?? null;
     });
 
     return yearData;
