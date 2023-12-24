@@ -21,3 +21,6 @@ jobs:
 
       - name: TSC
         run: tsc
+
+      - name: Jest
+        run: npm run test
