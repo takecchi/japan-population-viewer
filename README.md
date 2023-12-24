@@ -47,6 +47,8 @@ npm run storybook
 - Kuma UI ... ゼロランタイム CSS-in-JS
 - Storybook ... コンポーネントのカタログ & テスト
 - prettier ... フォーマッタ
+- ESLint ... 静的解析
+- jest ... ユニットテスト
 
 ## Coding rule
 
