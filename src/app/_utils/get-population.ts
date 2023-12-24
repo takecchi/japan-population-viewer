@@ -117,15 +117,21 @@ export const getPopulationData = cache(async (): Promise<PopulationData> => {
       // 年度一覧取得
       const perYear = perYears.find((res) => res.prefCode === pref.prefCode);
 
+      // ラベルでグループ化
+      const groupedData =
+        perYear?.data.result.data.reduce(
+          (acc, curr) => {
+            acc[curr.label] = curr.data;
+            return acc;
+          },
+          {} as { [key: string]: { year: number; value: number }[] },
+        ) ?? {};
+
       // ラベル別に抽出
       const labelData = labels.map((label) => {
-        // 人口
-        const totalPopulation = perYear?.data.result.data.find(
-          (d) => d.label === label,
-        );
         // 年度別に抽出
         const data: number[] = years.map((year) => {
-          const value = totalPopulation?.data.find((d) => d.year === year);
+          const value = groupedData[label]?.find((d) => d.year === year);
           return value?.value ?? 0;
         });
         return { label: label, data: data };
