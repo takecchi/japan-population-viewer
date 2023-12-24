@@ -1,36 +1,40 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# japan-population-viewer
+
+都道府県別の総人口推移グラフを表示します。
 
 ## Getting Started
 
-First, run the development server:
+### Environment
+
+人口を取得するために[RESAS API](https://opendata.resas-portal.go.jp/)を使用しています。  
+事前にAPIキーの払い出しをお願いします。
+
+1. `.env`を`.env.local`にコピー
+2. `.env.local`の`RESAS_API_KEY`に払い出したAPIキーを貼り付け
+
+### Run the Development Server
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+[http://localhost:3000](http://localhost:3000) を開いて確認出来ます。
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Run the Storybook
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+```bash
+npm run storybook
+```
 
-## Learn More
+[http://localhost:6006](http://localhost:6006) を開いて確認出来ます。
 
-To learn more about Next.js, take a look at the following resources:
+## Directories
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### [/src](./src)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+ソースコード置き場
 
-## Deploy on Vercel
+### [/public](./public)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+静的資材置き場
