@@ -29,7 +29,7 @@ export default function PrefCheckbox({ label, prefCode }: Props) {
           // チェックが外された場合、prefCode を削除
           updatedPrefCodes = prefCodes.filter((code) => code !== prefCode);
         }
-        router.push(`?${createQueryString(updatedPrefCodes)}`, {
+        router.replace(`?${createQueryString(updatedPrefCodes)}`, {
           scroll: false,
         });
       }}
