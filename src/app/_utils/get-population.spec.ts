@@ -49,18 +49,19 @@ describe('getPopulationData', () => {
     const populationData = await getPopulationData();
     expect(populationData).toEqual({
       years: [2010, 2020],
+      labels: ['総人口'],
       prefectures: [
         {
           color: getColor(1),
           name: '北海道',
           prefCode: '1',
-          data: [1000, 2000],
+          data: [{ label: '総人口', data: [1000, 2000] }],
         },
         {
           color: getColor(2),
           name: '青森県',
           prefCode: '2',
-          data: [1000, 2000],
+          data: [{ label: '総人口', data: [1000, 2000] }],
         },
       ],
     });
