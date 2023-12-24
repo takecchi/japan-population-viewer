@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+import { cache } from 'react';
 
 type Prefectures = {
   message: string | null;
@@ -21,7 +21,7 @@ function validatePrefectures(obj: unknown): obj is Prefectures {
   );
 }
 
-export async function GET() {
+export const getPrefectures = cache(async () => {
   try {
     const res = await fetch(process.env.RESAS_API_URL + '/api/v1/prefectures', {
       method: 'GET',
@@ -32,16 +32,11 @@ export async function GET() {
     const data = (await res.json()) as unknown;
     // 型チェック
     if (validatePrefectures(data)) {
-      return NextResponse.json(data);
+      return data;
+    } else {
+      throw new Error('Type Error');
     }
-    return NextResponse.json(
-      { message: 'Internal Server Error' },
-      { status: 500 },
-    );
   } catch (error) {
-    return NextResponse.json(
-      { message: 'Error occurred while fetching data from RESAS API' },
-      { status: 500 },
-    );
+    throw new Error('Failed to fetch data');
   }
-}
+});
