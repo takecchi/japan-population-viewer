@@ -1,5 +1,9 @@
 import { cache } from 'react';
 
+/**
+ * RESAS APIのレスポンス
+ * https://opendata.resas-portal.go.jp/docs/api/v1/prefectures.html
+ */
 type Prefectures = {
   message: string | null;
   result: { prefCode: number; prefName: string }[];
@@ -27,6 +31,9 @@ export const getPrefectures = cache(async () => {
       method: 'GET',
       headers: {
         'X-API-KEY': process.env.RESAS_API_KEY,
+      },
+      next: {
+        revalidate: 3600,
       },
     });
     const data = (await res.json()) as unknown;
