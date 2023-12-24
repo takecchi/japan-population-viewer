@@ -33,8 +33,30 @@ npm run storybook
 
 ### [/src](./src)
 
-ソースコード置き場
+ソースコード置き場。  
+詳しくは[こちら](./src)を御覧ください。
 
 ### [/public](./public)
 
 静的資材置き場
+
+## Libraries & Framework
+
+- Next.js
+- TypeScript
+- Kuma UI ... ゼロランタイム CSS-in-JS
+- Storybook ... コンポーネントのカタログ & テスト
+- prettier ... フォーマッタ
+
+## Coding rule
+
+### Commit message
+
+特に決まりはありません。  
+ただ、PRのタイトルがそのままコミットメッセージになるので、
+タイトルで何をしたか分かるように記述すること。
+
+### Repository model
+
+[GitHub flow](https://docs.github.com/ja/get-started/quickstart/github-flow)を採用しています。  
+作業をする際には`feature/**`のように作業用ブランチを作成し、`main`に対してプルリクエストを出してください。
