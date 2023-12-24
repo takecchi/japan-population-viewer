@@ -1,6 +1,10 @@
-import type { Config } from '@jest/types';
+import nextJest from 'next/jest';
 
-const config: Config.InitialOptions = {
+const createJestConfig = nextJest({
+  dir: './src',
+});
+
+const config = createJestConfig({
   moduleFileExtensions: ['js', 'json', 'ts'],
   rootDir: 'src',
   testRegex: '.*\\.spec\\.ts$',
@@ -10,8 +14,9 @@ const config: Config.InitialOptions = {
   collectCoverageFrom: ['**/*.(t|j)s'],
   testEnvironment: 'node',
   moduleNameMapper: {
+    react: 'next/dist/compiled/react/cjs/react.development.js',
     '^@/(.*)$': '<rootDir>/$1',
   },
-};
+});
 
 export default config;
