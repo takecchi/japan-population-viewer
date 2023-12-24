@@ -12,7 +12,7 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: 'Japan Population Viewer',
-  description: '都道府県別の総人口推移グラフをみるやつ',
+  description: '都道府県別の人口推移グラフをみるやつ',
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
