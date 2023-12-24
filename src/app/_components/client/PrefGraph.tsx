@@ -35,11 +35,9 @@ export default function PrefGraph({
   );
 
   // rechartsのdata形式に変換
-  const data = populationData.years.map((year) => {
+  const data = populationData.years.map((year, index) => {
     // 年を初期値として設定
     const yearData: { year: number; [key: string]: number | null } = { year };
-
-    const index = populationData.years.indexOf(year);
 
     // 選択された都道府県ごとにその年のデータを追加
     filtered.forEach((pref) => {
