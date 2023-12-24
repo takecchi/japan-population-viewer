@@ -12,21 +12,6 @@ export function getPrefCodes(searchParams: ReadonlyURLSearchParams) {
 }
 
 /**
- * 選択された都道府県番号一覧を返す
- * ※サーバーコンポーネントで使用
- * @param searchParams
- */
-export function getPrefCodesByObject(searchParams: {
-  [key: string]: string | string[] | undefined;
-}) {
-  const prefCodes = searchParams[QUERY_KEY];
-  if (!prefCodes) {
-    return [];
-  }
-  return Array.isArray(prefCodes) ? prefCodes : [prefCodes];
-}
-
-/**
  * クエリパラメータの形で返却する
  * ※ ?は付けません
  * @param prefCodes
